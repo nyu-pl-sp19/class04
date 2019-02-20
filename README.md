@@ -846,14 +846,14 @@ definition to the actual values that these variables hold at run-time
 
 The situation is more complex for languages where subroutines can
 *escape* the environment where they are created. A subroutine escapes
-the environment where it was created if it can somehow be called in a
+the environment where it is created if it can somehow be called in a
 different environment where the variables that where in scope at the
 point of its definition are bound to different memory
 locations/values. This can happen if the language allows nested
 subroutines to be returned by the surrounding subroutine or passed to
 other subroutines.
 
-Consider the following Scala code:
+Consider the following Scala program:
 
 ```scala
 def outer(i: Int, f: () => Unit): Unit = {
@@ -929,9 +929,9 @@ Consider the following variant of the example above:
  
 ```Scala
 def outer(i: Int): Int => Unit = {
-  def inner(j: Int) = println(i + j)
+  def inner(j: Int): Unit = println(i + j)
   
-  return inner
+  inner
 }
 
 var i = 2
@@ -941,11 +941,14 @@ outer(1)(2)
 
 Note the return type `Int => Unit` of the function `outer` indicates
 that `outer` returns a function that takes an `Int` as argument and
-produces a return value of type `Unit`.
+produces a return value of type `Unit`. The last line in the body of
+`outer` determines the return value of `outer` which is the function
+`inner` (note that we are not calling `inner` here but merely
+returning the function `inner` itself to the caller of `outer`).
 
-The call `outer(1)` in the last line will return the function `inner`
-defined inside of `outer` which is then immediately called with value
-`2`.
+The call `outer(1)` in the last line will thus evaluate to the
+function `inner` defined inside of `outer` which is then immediately
+called with value `2`.
 
 With static scoping and deep binding, the occurrence of `i` inside of
 `inner` will always refer to the parameter `i` of `outer` which is
