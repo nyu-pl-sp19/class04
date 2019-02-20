@@ -333,17 +333,20 @@ Prologue (caller)
 2. Push arguments on stack         
 3. Jump to subroutine, saving
    return address on stack
+
 Prologue (callee)
 4. Save old fp, set new fp
 5. Save callee-save registers
 6. Allocate and initialize locals
 Execute callee
 7: Push and pop temporaries
+
 Epilogue (callee)
 8: Pop locals
 9. Restore callee-save registers
 10. Restore frame pointer
 11. Jump to return address
+
 Epilogue (caller)
 12. Pop arguments
 13. Restore caller-save registers
@@ -417,10 +420,10 @@ know which of the original values stored in the registers modified by
 it will need all of them. So `f` would have to save and restore them
 all. If the caller only needs a subset of the modified registers, `f`
 would potentially be doing a lot of unnecessary work (involving RAM
-accesses which are 
+accesses which are expensive)
 
 The other extreme scenario is to leave all the work of saving the
-register to the callers. In this case, for every call to another
+registers to the callers. In this case, for every call to another
 function that `f` makes, the caller portion of the calling sequence for
 that call would be responsible for saving and restoring all the
 registers whose values `f` still needs after the call. Again, this is
@@ -509,7 +512,7 @@ Question: What are advantages and disadvantages of inlining?
 * Disadvantages: increases code size, can't always do inlining
   (e.g. recursive procedures)
 
-#### Evaluation Strategy and Parameter Passing Modes
+### Evaluation Strategy and Parameter Passing Modes
 
 We distinguish between two types of parameters:
 
@@ -661,7 +664,7 @@ specific parameter passing modes that they support. As we have already
 seen, some languages support multiple strategies and modes. Here is a
 brief overview for some languages:
 
-##### C
+#### C
 
 * Evaluation strategy is strict. The order in which actuals are
   evaluated is unspecified.
@@ -685,7 +688,7 @@ brief overview for some languages:
 * No need to distinguish between functions and procedures: return type
   `void` indicates side-effects only.
 
-##### C++
+#### C++
 
 * Evaluation strategy is strict. The order in which actuals are
   evaluated is unspecified.
@@ -702,7 +705,7 @@ brief overview for some languages:
   void f(const double& x);
   ```
 
-##### Java
+#### Java
 
 * Evaluation strategy is strict. The order in which actuals are
   evaluated is left to right.
@@ -730,7 +733,7 @@ brief overview for some languages:
   read-only.
 
 
-##### Scala
+#### Scala
 
 * Default is same as in Java (strict evaluation with
   call-by-value/call-by-sharing, evaluation order left to right).
@@ -743,7 +746,7 @@ brief overview for some languages:
 * By-need parameters can be simulated using by-name parameters and
   *lazy values*.
 
-##### OCaml
+#### OCaml
 
 * Evaluation strategy is strict.  The order in which actuals are
   evaluated is unspecified.
@@ -753,7 +756,7 @@ brief overview for some languages:
 * Lazy evaluation can be simulated using higher-order functions.
 
 
-##### Ada
+#### Ada
 
 * Goal: separate semantic intent from implementation
 
@@ -773,14 +776,14 @@ brief overview for some languages:
 * Functions can only have `in` parameters. Otherwise, they must be
   declared as procedures.
 
-##### Haskell
+#### Haskell
 
 * Evaluation strategy is lazy.
 
 * Default parameter passing mode is by-need.
 
 
-#### Variable Number of Parameters
+### Variable Number of Parameters
 
 Some languages allow functions with a variable number of parameters. 
 
@@ -811,7 +814,7 @@ printf("this is %d a format %d string", x, y);
   | ...                      |
   ```
   
-#### Passing Subroutines as Parameters
+### Passing Subroutines as Parameters
 
 C and C++ allow parameters which are pointers to subroutines:
 
@@ -968,7 +971,7 @@ is typically the default in languages with dynamic scoping that
 support nested subroutines.
     
 
-##### First-class functions: implementation issues
+#### First-class functions: implementation issues
 
 Functional programming languages treat functions as first-class values
 (i.e. they can be passed to and returned by other functions).  When
