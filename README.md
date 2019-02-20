@@ -329,25 +329,28 @@ Step 13: Restore caller-saved registers
 Summary of calling sequence:
 
 Prologue (caller)
+
 1. Save caller-save registers      
 2. Push arguments on stack         
 3. Jump to subroutine, saving
    return address on stack
 
 Prologue (callee)
+
 4. Save old fp, set new fp
 5. Save callee-save registers
-6. Allocate and initialize locals
-Execute callee
-7: Push and pop temporaries
+6. Allocate and initialize locals Execute callee
+7. Push and pop temporaries
 
 Epilogue (callee)
-8: Pop locals
+
+8. Pop locals
 9. Restore callee-save registers
 10. Restore frame pointer
 11. Jump to return address
 
 Epilogue (caller)
+
 12. Pop arguments
 13. Restore caller-save registers
 
