@@ -584,8 +584,8 @@ Parameter passing modes for strict evaluation:
   * assignment to formal, if allowed, also affects memory location of actual
 
   An example of a language that supports call-by-reference parameters
-  is C++. Here, the fact a parameter is passed by reference is
-  indicated using a *reference type*:
+  is C++. Here, the fact that a parameter is passed by reference is
+  indicated using a so-called *reference type*:
 
   ```c++
   void incr (int& x) {
