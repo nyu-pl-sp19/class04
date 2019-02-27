@@ -866,7 +866,7 @@ def outer(i: Int, f: () => Unit): Unit = {
   def inner(): Unit = println(i)
     
   if (i > 1) f()
-  else outer(2, b)
+  else outer(2, inner)
 }
 
 def foo(): Unit = ()
