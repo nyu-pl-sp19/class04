@@ -874,7 +874,7 @@ def foo(): Unit = ()
 outer(1, foo)
 ```
 
-Note that the type `() => Unit` of the parameter `p` in function `a`
+Note that the type `() => Unit` of the parameter `f` in function `outer`
 indicates that `f` itself is a function that takes no arguments and
 returns a value of type `Unit`. An example of such a function is `foo`
 which on the last line is passed to `outer` as argument for the
